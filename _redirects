@@ -1,2 +1,3 @@
 /pair-programming-guide/* https://pair-programming-guide.netlify.com/:splat 200
 /css/compiled.css https://pair-programming-guide.netlify.com/css/compiled.css 200
+/assets/* https://pair-programming-guide.netlify.com/assets/:splat 200
