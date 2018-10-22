@@ -520,6 +520,16 @@ ul {
 }
 
 /**
+ * Suppress the focus outline on elements that cannot be accessed via keyboard.
+ * This prevents an unwanted focus outline from appearing around elements that
+ * might still respond to pointer events.
+ */
+
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+/**
  * Tailwind custom reset styles
  */
 
@@ -580,7 +590,6 @@ textarea {
 
 img {
   max-width: 100%;
-  height: auto;
 }
 
 button,
@@ -620,8 +629,26 @@ button,
   cursor: pointer;
 }
 
-table {
-  border-collapse: collapse;
+.container {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 576px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 960px) {
+  .container {
+    max-width: 960px;
+  }
 }
 
 .list-reset {
@@ -771,24 +798,12 @@ table {
   background-repeat: repeat-y;
 }
 
-.bg-auto {
-  background-size: auto;
-}
-
 .bg-cover {
   background-size: cover;
 }
 
 .bg-contain {
   background-size: contain;
-}
-
-.border-collapse {
-  border-collapse: collapse;
-}
-
-.border-separate {
-  border-collapse: separate;
 }
 
 .border-transparent {
@@ -1189,14 +1204,6 @@ table {
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-.cursor-wait {
-  cursor: wait;
-}
-
-.cursor-move {
-  cursor: move;
 }
 
 .cursor-not-allowed {
@@ -2123,14 +2130,6 @@ table {
   opacity: 1;
 }
 
-.outline-none {
-  outline: 0;
-}
-
-.focus\:outline-none:focus {
-  outline: 0;
-}
-
 .overflow-auto {
   overflow: auto;
 }
@@ -2147,36 +2146,14 @@ table {
   overflow: scroll;
 }
 
-.overflow-x-auto {
-  overflow-x: auto;
-}
-
-.overflow-y-auto {
-  overflow-y: auto;
-}
-
-.overflow-x-hidden {
-  overflow-x: hidden;
-}
-
-.overflow-y-hidden {
-  overflow-y: hidden;
-}
-
-.overflow-x-visible {
-  overflow-x: visible;
-}
-
-.overflow-y-visible {
-  overflow-y: visible;
-}
-
 .overflow-x-scroll {
-  overflow-x: scroll;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 .overflow-y-scroll {
-  overflow-y: scroll;
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 .scrolling-touch {
@@ -2541,11 +2518,6 @@ table {
   position: relative;
 }
 
-.sticky {
-  position: -webkit-sticky;
-  position: sticky;
-}
-
 .pin-none {
   top: auto;
   right: auto;
@@ -2628,14 +2600,6 @@ table {
 
 .stroke-current {
   stroke: currentColor;
-}
-
-.table-auto {
-  table-layout: auto;
-}
-
-.table-fixed {
-  table-layout: fixed;
 }
 
 .text-left {
@@ -3256,10 +3220,6 @@ table {
     background-repeat: repeat-y;
   }
 
-  .sm\:bg-auto {
-    background-size: auto;
-  }
-
   .sm\:bg-cover {
     background-size: cover;
   }
@@ -3666,14 +3626,6 @@ table {
 
   .sm\:cursor-pointer {
     cursor: pointer;
-  }
-
-  .sm\:cursor-wait {
-    cursor: wait;
-  }
-
-  .sm\:cursor-move {
-    cursor: move;
   }
 
   .sm\:cursor-not-allowed {
@@ -4616,36 +4568,14 @@ table {
     overflow: scroll;
   }
 
-  .sm\:overflow-x-auto {
-    overflow-x: auto;
-  }
-
-  .sm\:overflow-y-auto {
-    overflow-y: auto;
-  }
-
-  .sm\:overflow-x-hidden {
-    overflow-x: hidden;
-  }
-
-  .sm\:overflow-y-hidden {
-    overflow-y: hidden;
-  }
-
-  .sm\:overflow-x-visible {
-    overflow-x: visible;
-  }
-
-  .sm\:overflow-y-visible {
-    overflow-y: visible;
-  }
-
   .sm\:overflow-x-scroll {
-    overflow-x: scroll;
+    overflow-x: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
   }
 
   .sm\:overflow-y-scroll {
-    overflow-y: scroll;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
   }
 
   .sm\:scrolling-touch {
@@ -5010,11 +4940,6 @@ table {
     position: relative;
   }
 
-  .sm\:sticky {
-    position: -webkit-sticky;
-    position: sticky;
-  }
-
   .sm\:pin-none {
     top: auto;
     right: auto;
@@ -5089,14 +5014,6 @@ table {
 
   .sm\:shadow-none {
     box-shadow: none;
-  }
-
-  .sm\:table-auto {
-    table-layout: auto;
-  }
-
-  .sm\:table-fixed {
-    table-layout: fixed;
   }
 
   .sm\:text-left {
@@ -5676,10 +5593,6 @@ table {
     background-repeat: repeat-y;
   }
 
-  .md\:bg-auto {
-    background-size: auto;
-  }
-
   .md\:bg-cover {
     background-size: cover;
   }
@@ -6086,14 +5999,6 @@ table {
 
   .md\:cursor-pointer {
     cursor: pointer;
-  }
-
-  .md\:cursor-wait {
-    cursor: wait;
-  }
-
-  .md\:cursor-move {
-    cursor: move;
   }
 
   .md\:cursor-not-allowed {
@@ -7036,36 +6941,14 @@ table {
     overflow: scroll;
   }
 
-  .md\:overflow-x-auto {
-    overflow-x: auto;
-  }
-
-  .md\:overflow-y-auto {
-    overflow-y: auto;
-  }
-
-  .md\:overflow-x-hidden {
-    overflow-x: hidden;
-  }
-
-  .md\:overflow-y-hidden {
-    overflow-y: hidden;
-  }
-
-  .md\:overflow-x-visible {
-    overflow-x: visible;
-  }
-
-  .md\:overflow-y-visible {
-    overflow-y: visible;
-  }
-
   .md\:overflow-x-scroll {
-    overflow-x: scroll;
+    overflow-x: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
   }
 
   .md\:overflow-y-scroll {
-    overflow-y: scroll;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
   }
 
   .md\:scrolling-touch {
@@ -7430,11 +7313,6 @@ table {
     position: relative;
   }
 
-  .md\:sticky {
-    position: -webkit-sticky;
-    position: sticky;
-  }
-
   .md\:pin-none {
     top: auto;
     right: auto;
@@ -7509,14 +7387,6 @@ table {
 
   .md\:shadow-none {
     box-shadow: none;
-  }
-
-  .md\:table-auto {
-    table-layout: auto;
-  }
-
-  .md\:table-fixed {
-    table-layout: fixed;
   }
 
   .md\:text-left {
@@ -8096,10 +7966,6 @@ table {
     background-repeat: repeat-y;
   }
 
-  .lg\:bg-auto {
-    background-size: auto;
-  }
-
   .lg\:bg-cover {
     background-size: cover;
   }
@@ -8506,14 +8372,6 @@ table {
 
   .lg\:cursor-pointer {
     cursor: pointer;
-  }
-
-  .lg\:cursor-wait {
-    cursor: wait;
-  }
-
-  .lg\:cursor-move {
-    cursor: move;
   }
 
   .lg\:cursor-not-allowed {
@@ -9456,36 +9314,14 @@ table {
     overflow: scroll;
   }
 
-  .lg\:overflow-x-auto {
-    overflow-x: auto;
-  }
-
-  .lg\:overflow-y-auto {
-    overflow-y: auto;
-  }
-
-  .lg\:overflow-x-hidden {
-    overflow-x: hidden;
-  }
-
-  .lg\:overflow-y-hidden {
-    overflow-y: hidden;
-  }
-
-  .lg\:overflow-x-visible {
-    overflow-x: visible;
-  }
-
-  .lg\:overflow-y-visible {
-    overflow-y: visible;
-  }
-
   .lg\:overflow-x-scroll {
-    overflow-x: scroll;
+    overflow-x: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
   }
 
   .lg\:overflow-y-scroll {
-    overflow-y: scroll;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
   }
 
   .lg\:scrolling-touch {
@@ -9850,11 +9686,6 @@ table {
     position: relative;
   }
 
-  .lg\:sticky {
-    position: -webkit-sticky;
-    position: sticky;
-  }
-
   .lg\:pin-none {
     top: auto;
     right: auto;
@@ -9929,14 +9760,6 @@ table {
 
   .lg\:shadow-none {
     box-shadow: none;
-  }
-
-  .lg\:table-auto {
-    table-layout: auto;
-  }
-
-  .lg\:table-fixed {
-    table-layout: fixed;
   }
 
   .lg\:text-left {
