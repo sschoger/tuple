@@ -1,27 +1,11 @@
-# Tailwind CSS Webpack Starter Project
+# Tuple's landing page
 
-This is an example of a super simple Webpack setup for using [Tailwind CSS](https://tailwindcss.com).
+## Run locally
 
-To get started, clone the project and install the dependencies:
+1. `yarn`
 
-```
-# Using npm
-npm install
-
-# Using Yarn
-yarn
-```
-
-After that, start up Webpack:
-
-```
-webpack --watch
-```
+2. `webpack --watch`
 
 Webpack will watch `/src/styles.css` and `/tailwind.js` and rebuild your stylesheet on every change.
 
 You can play around with `/dist/index.html` to see the effects of your changes.
-
-## Contributing
-
-Have a lot of experience with Webpack and suggestions on how we could improve this starter template? We'd love a PR!
