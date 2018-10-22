@@ -6,6 +6,8 @@
 
 2. Watch for changes and recompile CSS: `yarn watch
 
+3. See your work by opening `./index.html` in your browser.
+
 ## Deploy
 
 The site is deployed automatically to Netlify when you push.
