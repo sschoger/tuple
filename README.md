@@ -4,14 +4,10 @@
 
 1. Install deps: `yarn`
 
-2. Watch for changes and recompile: `webpack --watch`
-
-Webpack will watch `/src/styles.css` and `/tailwind.js` and rebuild your stylesheet on every change. (Sometimes, or it will crash because JavaScript is a steaming pile of shit.)
+2. Watch for changes and recompile CSS: `yarn watch
 
 ## Deploy
 
-The site is deployed automatically to Netlify.
+The site is deployed automatically to Netlify when you push.
 
-Configure that here: https://app.netlify.com/sites/tuple-landing-page.
-
-There is currently no build command that's run on deploy, so make sure that you've built locally, and that `dist/index.html` has your updates.
+You can configure that here: https://app.netlify.com/sites/tuple-landing-page.
