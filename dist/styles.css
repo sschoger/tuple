@@ -11,7 +11,7 @@
 
 html {
   line-height: 1.15; /* 1 */
-  -ms-text-size-adjust: 100%; /* 2 */
+      -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
@@ -46,7 +46,7 @@ section {
 
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
+  margin: .67em 0;
 }
 
 /* Grouping content
@@ -59,7 +59,8 @@ h1 {
 
 figcaption,
 figure,
-main { /* 1 */
+main {
+  /* 1 */
   display: block;
 }
 
@@ -113,7 +114,8 @@ a {
 abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted; /* 2 */
 }
 
 /**
@@ -254,7 +256,8 @@ textarea {
  */
 
 button,
-input { /* 1 */
+input {
+  /* 1 */
   overflow: visible;
 }
 
@@ -264,7 +267,8 @@ input { /* 1 */
  */
 
 button,
-select { /* 1 */
+select {
+  /* 1 */
   text-transform: none;
 }
 
@@ -276,6 +280,7 @@ select { /* 1 */
 
 button,
 html [type="button"],
+/* 1 */
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button; /* 2 */
@@ -309,7 +314,7 @@ button:-moz-focusring,
  */
 
 fieldset {
-  padding: 0.35em 0.75em 0.625em;
+  padding: .35em .75em .625em;
 }
 
 /**
@@ -404,6 +409,7 @@ textarea {
  */
 
 details,
+/* 1 */
 menu {
   display: block;
 }
@@ -514,17 +520,23 @@ ul {
 }
 
 /**
- * Suppress the focus outline on elements that cannot be accessed via keyboard.
- * This prevents an unwanted focus outline from appearing around elements that
- * might still respond to pointer events.
+ * Tailwind custom reset styles
  */
 
-[tabindex="-1"]:focus {
-  outline: none !important;
-}
-
 /**
- * Tailwind custom reset styles
+ * Allow adding a border to an element by just adding a border-width.
+ *
+ * By default, the way the browser specifies that an element should have no
+ * border is by setting it's border-style to `none` in the user-agent
+ * stylesheet.
+ *
+ * In order to easily add borders to elements by just setting the `border-width`
+ * property, we change the default border-style for all elements to `solid`, and
+ * use border-width to hide them instead. This way our `border` utilities only
+ * need to set the `border-width` property instead of the entire `border`
+ * shorthand, making our border utilities much more straightforward to compose.
+ *
+ * https://github.com/tailwindcss/tailwindcss/pull/116
  */
 
 *,
@@ -536,10 +548,25 @@ ul {
 }
 
 /**
+ * Undo the `border-style: none` reset that Normalize applies to images so that
+ * our `border-{width}` utilities have the expected effect.
+ *
+ * The Normalize reset is unnecessary for us since we default the border-width
+ * to 0 on all elements.
+ *
+ * https://github.com/tailwindcss/tailwindcss/issues/362
+ */
+
+img {
+  border-style: solid;
+}
+
+/**
  * Temporary reset for a change introduced in Chrome 62 but now reverted.
  *
  * We can remove this when the reversion is in a normal Chrome release.
  */
+
 button,
 [type="button"],
 [type="reset"],
@@ -553,6 +580,7 @@ textarea {
 
 img {
   max-width: 100%;
+  height: auto;
 }
 
 button,
@@ -561,6 +589,24 @@ optgroup,
 select,
 textarea {
   font-family: inherit;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .5;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: inherit;
+  opacity: .5;
+}
+
+input::-ms-input-placeholder,
+textarea::-ms-input-placeholder {
+  color: inherit;
+  opacity: .5;
 }
 
 input::placeholder,
@@ -574,26 +620,8 @@ button,
   cursor: pointer;
 }
 
-.container {
-  width: 100%;
-}
-
-@media (min-width: 576px) {
-  .container {
-    max-width: 576px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 960px) {
-  .container {
-    max-width: 960px;
-  }
+table {
+  border-collapse: collapse;
 }
 
 .list-reset {
@@ -602,7 +630,9 @@ button,
 }
 
 .appearance-none {
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 
 .bg-fixed {
@@ -634,7 +664,7 @@ button,
 }
 
 .bg-white {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .bg-blue-lighter {
@@ -642,7 +672,7 @@ button,
 }
 
 .bg-blue-lightest {
-  background-color: #d8f6ff;;
+  background-color: #D8F6FF;;
 }
 
 .bg-indigo-dark {
@@ -670,7 +700,7 @@ button,
 }
 
 .hover\:bg-white:hover {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .hover\:bg-blue-lighter:hover {
@@ -678,7 +708,7 @@ button,
 }
 
 .hover\:bg-blue-lightest:hover {
-  background-color: #d8f6ff;;
+  background-color: #D8F6FF;;
 }
 
 .hover\:bg-indigo-dark:hover {
@@ -741,12 +771,24 @@ button,
   background-repeat: repeat-y;
 }
 
+.bg-auto {
+  background-size: auto;
+}
+
 .bg-cover {
   background-size: cover;
 }
 
 .bg-contain {
   background-size: contain;
+}
+
+.border-collapse {
+  border-collapse: collapse;
+}
+
+.border-separate {
+  border-collapse: separate;
 }
 
 .border-transparent {
@@ -766,7 +808,7 @@ button,
 }
 
 .border-white {
-  border-color: #ffffff;
+  border-color: #fff;
 }
 
 .border-blue-lighter {
@@ -774,7 +816,7 @@ button,
 }
 
 .border-blue-lightest {
-  border-color: #d8f6ff;;
+  border-color: #D8F6FF;;
 }
 
 .border-indigo-dark {
@@ -802,7 +844,7 @@ button,
 }
 
 .hover\:border-white:hover {
-  border-color: #ffffff;
+  border-color: #fff;
 }
 
 .hover\:border-blue-lighter:hover {
@@ -810,7 +852,7 @@ button,
 }
 
 .hover\:border-blue-lightest:hover {
-  border-color: #d8f6ff;;
+  border-color: #D8F6FF;;
 }
 
 .hover\:border-indigo-dark:hover {
@@ -1149,6 +1191,14 @@ button,
   cursor: pointer;
 }
 
+.cursor-wait {
+  cursor: wait;
+}
+
+.cursor-move {
+  cursor: move;
+}
+
 .cursor-not-allowed {
   cursor: not-allowed;
 }
@@ -1392,15 +1442,15 @@ button,
 }
 
 .h-1 {
-  height: 0.25rem;
+  height: .25rem;
 }
 
 .h-2 {
-  height: 0.5rem;
+  height: .5rem;
 }
 
 .h-3 {
-  height: 0.75rem;
+  height: .75rem;
 }
 
 .h-4 {
@@ -1480,15 +1530,15 @@ button,
 }
 
 .m-1 {
-  margin: 0.25rem;
+  margin: .25rem;
 }
 
 .m-2 {
-  margin: 0.5rem;
+  margin: .5rem;
 }
 
 .m-3 {
-  margin: 0.75rem;
+  margin: .75rem;
 }
 
 .m-4 {
@@ -1522,33 +1572,33 @@ button,
 }
 
 .my-1 {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  margin-top: .25rem;
+  margin-bottom: .25rem;
 }
 
 .mx-1 {
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+  margin-left: .25rem;
+  margin-right: .25rem;
 }
 
 .my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
 }
 
 .mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin-left: .5rem;
+  margin-right: .5rem;
 }
 
 .my-3 {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
+  margin-top: .75rem;
+  margin-bottom: .75rem;
 }
 
 .mx-3 {
-  margin-left: 0.75rem;
-  margin-right: 0.75rem;
+  margin-left: .75rem;
+  margin-right: .75rem;
 }
 
 .my-4 {
@@ -1618,51 +1668,51 @@ button,
 }
 
 .mt-1 {
-  margin-top: 0.25rem;
+  margin-top: .25rem;
 }
 
 .mr-1 {
-  margin-right: 0.25rem;
+  margin-right: .25rem;
 }
 
 .mb-1 {
-  margin-bottom: 0.25rem;
+  margin-bottom: .25rem;
 }
 
 .ml-1 {
-  margin-left: 0.25rem;
+  margin-left: .25rem;
 }
 
 .mt-2 {
-  margin-top: 0.5rem;
+  margin-top: .5rem;
 }
 
 .mr-2 {
-  margin-right: 0.5rem;
+  margin-right: .5rem;
 }
 
 .mb-2 {
-  margin-bottom: 0.5rem;
+  margin-bottom: .5rem;
 }
 
 .ml-2 {
-  margin-left: 0.5rem;
+  margin-left: .5rem;
 }
 
 .mt-3 {
-  margin-top: 0.75rem;
+  margin-top: .75rem;
 }
 
 .mr-3 {
-  margin-right: 0.75rem;
+  margin-right: .75rem;
 }
 
 .mb-3 {
-  margin-bottom: 0.75rem;
+  margin-bottom: .75rem;
 }
 
 .ml-3 {
-  margin-left: 0.75rem;
+  margin-left: .75rem;
 }
 
 .mt-4 {
@@ -2073,6 +2123,14 @@ button,
   opacity: 1;
 }
 
+.outline-none {
+  outline: 0;
+}
+
+.focus\:outline-none:focus {
+  outline: 0;
+}
+
 .overflow-auto {
   overflow: auto;
 }
@@ -2089,14 +2147,36 @@ button,
   overflow: scroll;
 }
 
-.overflow-x-scroll {
+.overflow-x-auto {
   overflow-x: auto;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.overflow-x-visible {
+  overflow-x: visible;
+}
+
+.overflow-y-visible {
+  overflow-y: visible;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
 }
 
 .overflow-y-scroll {
-  overflow-y: auto;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-y: scroll;
 }
 
 .scrolling-touch {
@@ -2112,15 +2192,15 @@ button,
 }
 
 .p-1 {
-  padding: 0.25rem;
+  padding: .25rem;
 }
 
 .p-2 {
-  padding: 0.5rem;
+  padding: .5rem;
 }
 
 .p-3 {
-  padding: 0.75rem;
+  padding: .75rem;
 }
 
 .p-4 {
@@ -2162,33 +2242,33 @@ button,
 }
 
 .py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
 }
 
 .px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
+  padding-left: .25rem;
+  padding-right: .25rem;
 }
 
 .py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 }
 
 .px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
 }
 
 .py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
 }
 
 .px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
+  padding-left: .75rem;
+  padding-right: .75rem;
 }
 
 .py-4 {
@@ -2278,51 +2358,51 @@ button,
 }
 
 .pt-1 {
-  padding-top: 0.25rem;
+  padding-top: .25rem;
 }
 
 .pr-1 {
-  padding-right: 0.25rem;
+  padding-right: .25rem;
 }
 
 .pb-1 {
-  padding-bottom: 0.25rem;
+  padding-bottom: .25rem;
 }
 
 .pl-1 {
-  padding-left: 0.25rem;
+  padding-left: .25rem;
 }
 
 .pt-2 {
-  padding-top: 0.5rem;
+  padding-top: .5rem;
 }
 
 .pr-2 {
-  padding-right: 0.5rem;
+  padding-right: .5rem;
 }
 
 .pb-2 {
-  padding-bottom: 0.5rem;
+  padding-bottom: .5rem;
 }
 
 .pl-2 {
-  padding-left: 0.5rem;
+  padding-left: .5rem;
 }
 
 .pt-3 {
-  padding-top: 0.75rem;
+  padding-top: .75rem;
 }
 
 .pr-3 {
-  padding-right: 0.75rem;
+  padding-right: .75rem;
 }
 
 .pb-3 {
-  padding-bottom: 0.75rem;
+  padding-bottom: .75rem;
 }
 
 .pl-3 {
-  padding-left: 0.75rem;
+  padding-left: .75rem;
 }
 
 .pt-4 {
@@ -2461,6 +2541,11 @@ button,
   position: relative;
 }
 
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
 .pin-none {
   top: auto;
   right: auto;
@@ -2518,19 +2603,19 @@ button,
 }
 
 .shadow {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
 }
 
 .shadow-md {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
 }
 
 .shadow-lg {
-  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
 }
 
 .shadow-inner {
-  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
 }
 
 .shadow-none {
@@ -2543,6 +2628,14 @@ button,
 
 .stroke-current {
   stroke: currentColor;
+}
+
+.table-auto {
+  table-layout: auto;
+}
+
+.table-fixed {
+  table-layout: fixed;
 }
 
 .text-left {
@@ -2578,7 +2671,7 @@ button,
 }
 
 .text-white {
-  color: #ffffff;
+  color: #fff;
 }
 
 .text-blue-lighter {
@@ -2586,7 +2679,7 @@ button,
 }
 
 .text-blue-lightest {
-  color: #d8f6ff;;
+  color: #D8F6FF;;
 }
 
 .text-indigo-dark {
@@ -2614,7 +2707,7 @@ button,
 }
 
 .hover\:text-white:hover {
-  color: #ffffff;
+  color: #fff;
 }
 
 .hover\:text-blue-lighter:hover {
@@ -2622,7 +2715,7 @@ button,
 }
 
 .hover\:text-blue-lightest:hover {
-  color: #d8f6ff;;
+  color: #D8F6FF;;
 }
 
 .hover\:text-indigo-dark:hover {
@@ -2778,15 +2871,21 @@ button,
 }
 
 .tracking-wide {
-  letter-spacing: 0.05em;
+  letter-spacing: .05em;
 }
 
 .select-none {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .select-text {
-  user-select: text;
+  -webkit-user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+          user-select: text;
 }
 
 .align-baseline {
@@ -2856,15 +2955,15 @@ button,
 }
 
 .w-1 {
-  width: 0.25rem;
+  width: .25rem;
 }
 
 .w-2 {
-  width: 0.5rem;
+  width: .5rem;
 }
 
 .w-3 {
-  width: 0.75rem;
+  width: .75rem;
 }
 
 .w-4 {
@@ -2967,20 +3066,45 @@ button,
   z-index: auto;
 }
 
+::-moz-selection {
+  background: #c8f2ff;
+}
+
 ::selection {
   background: #c8f2ff;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::-webkit-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #808790;
   opacity: 1; /* Firefox */
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+:-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #808790;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #808790;
+  opacity: 1; /* Firefox */
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #808790;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: #808790;
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
+::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: #808790;
 }
 
@@ -2991,7 +3115,9 @@ button,
   }
 
   .sm\:appearance-none {
-    appearance: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
   }
 
   .sm\:bg-fixed {
@@ -3023,7 +3149,7 @@ button,
   }
 
   .sm\:bg-white {
-    background-color: #ffffff;
+    background-color: #fff;
   }
 
   .sm\:bg-blue-lighter {
@@ -3031,7 +3157,7 @@ button,
   }
 
   .sm\:bg-blue-lightest {
-    background-color: #d8f6ff;;
+    background-color: #D8F6FF;;
   }
 
   .sm\:bg-indigo-dark {
@@ -3059,7 +3185,7 @@ button,
   }
 
   .sm\:hover\:bg-white:hover {
-    background-color: #ffffff;
+    background-color: #fff;
   }
 
   .sm\:hover\:bg-blue-lighter:hover {
@@ -3067,7 +3193,7 @@ button,
   }
 
   .sm\:hover\:bg-blue-lightest:hover {
-    background-color: #d8f6ff;;
+    background-color: #D8F6FF;;
   }
 
   .sm\:hover\:bg-indigo-dark:hover {
@@ -3130,6 +3256,10 @@ button,
     background-repeat: repeat-y;
   }
 
+  .sm\:bg-auto {
+    background-size: auto;
+  }
+
   .sm\:bg-cover {
     background-size: cover;
   }
@@ -3155,7 +3285,7 @@ button,
   }
 
   .sm\:border-white {
-    border-color: #ffffff;
+    border-color: #fff;
   }
 
   .sm\:border-blue-lighter {
@@ -3163,7 +3293,7 @@ button,
   }
 
   .sm\:border-blue-lightest {
-    border-color: #d8f6ff;;
+    border-color: #D8F6FF;;
   }
 
   .sm\:border-indigo-dark {
@@ -3191,7 +3321,7 @@ button,
   }
 
   .sm\:hover\:border-white:hover {
-    border-color: #ffffff;
+    border-color: #fff;
   }
 
   .sm\:hover\:border-blue-lighter:hover {
@@ -3199,7 +3329,7 @@ button,
   }
 
   .sm\:hover\:border-blue-lightest:hover {
-    border-color: #d8f6ff;;
+    border-color: #D8F6FF;;
   }
 
   .sm\:hover\:border-indigo-dark:hover {
@@ -3538,6 +3668,14 @@ button,
     cursor: pointer;
   }
 
+  .sm\:cursor-wait {
+    cursor: wait;
+  }
+
+  .sm\:cursor-move {
+    cursor: move;
+  }
+
   .sm\:cursor-not-allowed {
     cursor: not-allowed;
   }
@@ -3781,15 +3919,15 @@ button,
   }
 
   .sm\:h-1 {
-    height: 0.25rem;
+    height: .25rem;
   }
 
   .sm\:h-2 {
-    height: 0.5rem;
+    height: .5rem;
   }
 
   .sm\:h-3 {
-    height: 0.75rem;
+    height: .75rem;
   }
 
   .sm\:h-4 {
@@ -3869,15 +4007,15 @@ button,
   }
 
   .sm\:m-1 {
-    margin: 0.25rem;
+    margin: .25rem;
   }
 
   .sm\:m-2 {
-    margin: 0.5rem;
+    margin: .5rem;
   }
 
   .sm\:m-3 {
-    margin: 0.75rem;
+    margin: .75rem;
   }
 
   .sm\:m-4 {
@@ -3911,33 +4049,33 @@ button,
   }
 
   .sm\:my-1 {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
+    margin-top: .25rem;
+    margin-bottom: .25rem;
   }
 
   .sm\:mx-1 {
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
+    margin-left: .25rem;
+    margin-right: .25rem;
   }
 
   .sm\:my-2 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
   }
 
   .sm\:mx-2 {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
   }
 
   .sm\:my-3 {
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
+    margin-top: .75rem;
+    margin-bottom: .75rem;
   }
 
   .sm\:mx-3 {
-    margin-left: 0.75rem;
-    margin-right: 0.75rem;
+    margin-left: .75rem;
+    margin-right: .75rem;
   }
 
   .sm\:my-4 {
@@ -4007,51 +4145,51 @@ button,
   }
 
   .sm\:mt-1 {
-    margin-top: 0.25rem;
+    margin-top: .25rem;
   }
 
   .sm\:mr-1 {
-    margin-right: 0.25rem;
+    margin-right: .25rem;
   }
 
   .sm\:mb-1 {
-    margin-bottom: 0.25rem;
+    margin-bottom: .25rem;
   }
 
   .sm\:ml-1 {
-    margin-left: 0.25rem;
+    margin-left: .25rem;
   }
 
   .sm\:mt-2 {
-    margin-top: 0.5rem;
+    margin-top: .5rem;
   }
 
   .sm\:mr-2 {
-    margin-right: 0.5rem;
+    margin-right: .5rem;
   }
 
   .sm\:mb-2 {
-    margin-bottom: 0.5rem;
+    margin-bottom: .5rem;
   }
 
   .sm\:ml-2 {
-    margin-left: 0.5rem;
+    margin-left: .5rem;
   }
 
   .sm\:mt-3 {
-    margin-top: 0.75rem;
+    margin-top: .75rem;
   }
 
   .sm\:mr-3 {
-    margin-right: 0.75rem;
+    margin-right: .75rem;
   }
 
   .sm\:mb-3 {
-    margin-bottom: 0.75rem;
+    margin-bottom: .75rem;
   }
 
   .sm\:ml-3 {
-    margin-left: 0.75rem;
+    margin-left: .75rem;
   }
 
   .sm\:mt-4 {
@@ -4478,14 +4616,36 @@ button,
     overflow: scroll;
   }
 
-  .sm\:overflow-x-scroll {
+  .sm\:overflow-x-auto {
     overflow-x: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+
+  .sm\:overflow-y-auto {
+    overflow-y: auto;
+  }
+
+  .sm\:overflow-x-hidden {
+    overflow-x: hidden;
+  }
+
+  .sm\:overflow-y-hidden {
+    overflow-y: hidden;
+  }
+
+  .sm\:overflow-x-visible {
+    overflow-x: visible;
+  }
+
+  .sm\:overflow-y-visible {
+    overflow-y: visible;
+  }
+
+  .sm\:overflow-x-scroll {
+    overflow-x: scroll;
   }
 
   .sm\:overflow-y-scroll {
-    overflow-y: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+    overflow-y: scroll;
   }
 
   .sm\:scrolling-touch {
@@ -4501,15 +4661,15 @@ button,
   }
 
   .sm\:p-1 {
-    padding: 0.25rem;
+    padding: .25rem;
   }
 
   .sm\:p-2 {
-    padding: 0.5rem;
+    padding: .5rem;
   }
 
   .sm\:p-3 {
-    padding: 0.75rem;
+    padding: .75rem;
   }
 
   .sm\:p-4 {
@@ -4551,33 +4711,33 @@ button,
   }
 
   .sm\:py-1 {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
   }
 
   .sm\:px-1 {
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
+    padding-left: .25rem;
+    padding-right: .25rem;
   }
 
   .sm\:py-2 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
   }
 
   .sm\:px-2 {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
   }
 
   .sm\:py-3 {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
   }
 
   .sm\:px-3 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
   }
 
   .sm\:py-4 {
@@ -4667,51 +4827,51 @@ button,
   }
 
   .sm\:pt-1 {
-    padding-top: 0.25rem;
+    padding-top: .25rem;
   }
 
   .sm\:pr-1 {
-    padding-right: 0.25rem;
+    padding-right: .25rem;
   }
 
   .sm\:pb-1 {
-    padding-bottom: 0.25rem;
+    padding-bottom: .25rem;
   }
 
   .sm\:pl-1 {
-    padding-left: 0.25rem;
+    padding-left: .25rem;
   }
 
   .sm\:pt-2 {
-    padding-top: 0.5rem;
+    padding-top: .5rem;
   }
 
   .sm\:pr-2 {
-    padding-right: 0.5rem;
+    padding-right: .5rem;
   }
 
   .sm\:pb-2 {
-    padding-bottom: 0.5rem;
+    padding-bottom: .5rem;
   }
 
   .sm\:pl-2 {
-    padding-left: 0.5rem;
+    padding-left: .5rem;
   }
 
   .sm\:pt-3 {
-    padding-top: 0.75rem;
+    padding-top: .75rem;
   }
 
   .sm\:pr-3 {
-    padding-right: 0.75rem;
+    padding-right: .75rem;
   }
 
   .sm\:pb-3 {
-    padding-bottom: 0.75rem;
+    padding-bottom: .75rem;
   }
 
   .sm\:pl-3 {
-    padding-left: 0.75rem;
+    padding-left: .75rem;
   }
 
   .sm\:pt-4 {
@@ -4850,6 +5010,11 @@ button,
     position: relative;
   }
 
+  .sm\:sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
   .sm\:pin-none {
     top: auto;
     right: auto;
@@ -4907,23 +5072,31 @@ button,
   }
 
   .sm\:shadow {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
 
   .sm\:shadow-md {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
   }
 
   .sm\:shadow-lg {
-    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
   }
 
   .sm\:shadow-inner {
-    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
   }
 
   .sm\:shadow-none {
     box-shadow: none;
+  }
+
+  .sm\:table-auto {
+    table-layout: auto;
+  }
+
+  .sm\:table-fixed {
+    table-layout: fixed;
   }
 
   .sm\:text-left {
@@ -4959,7 +5132,7 @@ button,
   }
 
   .sm\:text-white {
-    color: #ffffff;
+    color: #fff;
   }
 
   .sm\:text-blue-lighter {
@@ -4967,7 +5140,7 @@ button,
   }
 
   .sm\:text-blue-lightest {
-    color: #d8f6ff;;
+    color: #D8F6FF;;
   }
 
   .sm\:text-indigo-dark {
@@ -4995,7 +5168,7 @@ button,
   }
 
   .sm\:hover\:text-white:hover {
-    color: #ffffff;
+    color: #fff;
   }
 
   .sm\:hover\:text-blue-lighter:hover {
@@ -5003,7 +5176,7 @@ button,
   }
 
   .sm\:hover\:text-blue-lightest:hover {
-    color: #d8f6ff;;
+    color: #D8F6FF;;
   }
 
   .sm\:hover\:text-indigo-dark:hover {
@@ -5159,15 +5332,21 @@ button,
   }
 
   .sm\:tracking-wide {
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
   }
 
   .sm\:select-none {
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
   }
 
   .sm\:select-text {
-    user-select: text;
+    -webkit-user-select: text;
+       -moz-user-select: text;
+        -ms-user-select: text;
+            user-select: text;
   }
 
   .sm\:align-baseline {
@@ -5237,15 +5416,15 @@ button,
   }
 
   .sm\:w-1 {
-    width: 0.25rem;
+    width: .25rem;
   }
 
   .sm\:w-2 {
-    width: 0.5rem;
+    width: .5rem;
   }
 
   .sm\:w-3 {
-    width: 0.75rem;
+    width: .75rem;
   }
 
   .sm\:w-4 {
@@ -5356,7 +5535,9 @@ button,
   }
 
   .md\:appearance-none {
-    appearance: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
   }
 
   .md\:bg-fixed {
@@ -5388,7 +5569,7 @@ button,
   }
 
   .md\:bg-white {
-    background-color: #ffffff;
+    background-color: #fff;
   }
 
   .md\:bg-blue-lighter {
@@ -5396,7 +5577,7 @@ button,
   }
 
   .md\:bg-blue-lightest {
-    background-color: #d8f6ff;;
+    background-color: #D8F6FF;;
   }
 
   .md\:bg-indigo-dark {
@@ -5424,7 +5605,7 @@ button,
   }
 
   .md\:hover\:bg-white:hover {
-    background-color: #ffffff;
+    background-color: #fff;
   }
 
   .md\:hover\:bg-blue-lighter:hover {
@@ -5432,7 +5613,7 @@ button,
   }
 
   .md\:hover\:bg-blue-lightest:hover {
-    background-color: #d8f6ff;;
+    background-color: #D8F6FF;;
   }
 
   .md\:hover\:bg-indigo-dark:hover {
@@ -5495,6 +5676,10 @@ button,
     background-repeat: repeat-y;
   }
 
+  .md\:bg-auto {
+    background-size: auto;
+  }
+
   .md\:bg-cover {
     background-size: cover;
   }
@@ -5520,7 +5705,7 @@ button,
   }
 
   .md\:border-white {
-    border-color: #ffffff;
+    border-color: #fff;
   }
 
   .md\:border-blue-lighter {
@@ -5528,7 +5713,7 @@ button,
   }
 
   .md\:border-blue-lightest {
-    border-color: #d8f6ff;;
+    border-color: #D8F6FF;;
   }
 
   .md\:border-indigo-dark {
@@ -5556,7 +5741,7 @@ button,
   }
 
   .md\:hover\:border-white:hover {
-    border-color: #ffffff;
+    border-color: #fff;
   }
 
   .md\:hover\:border-blue-lighter:hover {
@@ -5564,7 +5749,7 @@ button,
   }
 
   .md\:hover\:border-blue-lightest:hover {
-    border-color: #d8f6ff;;
+    border-color: #D8F6FF;;
   }
 
   .md\:hover\:border-indigo-dark:hover {
@@ -5903,6 +6088,14 @@ button,
     cursor: pointer;
   }
 
+  .md\:cursor-wait {
+    cursor: wait;
+  }
+
+  .md\:cursor-move {
+    cursor: move;
+  }
+
   .md\:cursor-not-allowed {
     cursor: not-allowed;
   }
@@ -6146,15 +6339,15 @@ button,
   }
 
   .md\:h-1 {
-    height: 0.25rem;
+    height: .25rem;
   }
 
   .md\:h-2 {
-    height: 0.5rem;
+    height: .5rem;
   }
 
   .md\:h-3 {
-    height: 0.75rem;
+    height: .75rem;
   }
 
   .md\:h-4 {
@@ -6234,15 +6427,15 @@ button,
   }
 
   .md\:m-1 {
-    margin: 0.25rem;
+    margin: .25rem;
   }
 
   .md\:m-2 {
-    margin: 0.5rem;
+    margin: .5rem;
   }
 
   .md\:m-3 {
-    margin: 0.75rem;
+    margin: .75rem;
   }
 
   .md\:m-4 {
@@ -6276,33 +6469,33 @@ button,
   }
 
   .md\:my-1 {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
+    margin-top: .25rem;
+    margin-bottom: .25rem;
   }
 
   .md\:mx-1 {
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
+    margin-left: .25rem;
+    margin-right: .25rem;
   }
 
   .md\:my-2 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
   }
 
   .md\:mx-2 {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
   }
 
   .md\:my-3 {
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
+    margin-top: .75rem;
+    margin-bottom: .75rem;
   }
 
   .md\:mx-3 {
-    margin-left: 0.75rem;
-    margin-right: 0.75rem;
+    margin-left: .75rem;
+    margin-right: .75rem;
   }
 
   .md\:my-4 {
@@ -6372,51 +6565,51 @@ button,
   }
 
   .md\:mt-1 {
-    margin-top: 0.25rem;
+    margin-top: .25rem;
   }
 
   .md\:mr-1 {
-    margin-right: 0.25rem;
+    margin-right: .25rem;
   }
 
   .md\:mb-1 {
-    margin-bottom: 0.25rem;
+    margin-bottom: .25rem;
   }
 
   .md\:ml-1 {
-    margin-left: 0.25rem;
+    margin-left: .25rem;
   }
 
   .md\:mt-2 {
-    margin-top: 0.5rem;
+    margin-top: .5rem;
   }
 
   .md\:mr-2 {
-    margin-right: 0.5rem;
+    margin-right: .5rem;
   }
 
   .md\:mb-2 {
-    margin-bottom: 0.5rem;
+    margin-bottom: .5rem;
   }
 
   .md\:ml-2 {
-    margin-left: 0.5rem;
+    margin-left: .5rem;
   }
 
   .md\:mt-3 {
-    margin-top: 0.75rem;
+    margin-top: .75rem;
   }
 
   .md\:mr-3 {
-    margin-right: 0.75rem;
+    margin-right: .75rem;
   }
 
   .md\:mb-3 {
-    margin-bottom: 0.75rem;
+    margin-bottom: .75rem;
   }
 
   .md\:ml-3 {
-    margin-left: 0.75rem;
+    margin-left: .75rem;
   }
 
   .md\:mt-4 {
@@ -6843,14 +7036,36 @@ button,
     overflow: scroll;
   }
 
-  .md\:overflow-x-scroll {
+  .md\:overflow-x-auto {
     overflow-x: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+
+  .md\:overflow-y-auto {
+    overflow-y: auto;
+  }
+
+  .md\:overflow-x-hidden {
+    overflow-x: hidden;
+  }
+
+  .md\:overflow-y-hidden {
+    overflow-y: hidden;
+  }
+
+  .md\:overflow-x-visible {
+    overflow-x: visible;
+  }
+
+  .md\:overflow-y-visible {
+    overflow-y: visible;
+  }
+
+  .md\:overflow-x-scroll {
+    overflow-x: scroll;
   }
 
   .md\:overflow-y-scroll {
-    overflow-y: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+    overflow-y: scroll;
   }
 
   .md\:scrolling-touch {
@@ -6866,15 +7081,15 @@ button,
   }
 
   .md\:p-1 {
-    padding: 0.25rem;
+    padding: .25rem;
   }
 
   .md\:p-2 {
-    padding: 0.5rem;
+    padding: .5rem;
   }
 
   .md\:p-3 {
-    padding: 0.75rem;
+    padding: .75rem;
   }
 
   .md\:p-4 {
@@ -6916,33 +7131,33 @@ button,
   }
 
   .md\:py-1 {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
   }
 
   .md\:px-1 {
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
+    padding-left: .25rem;
+    padding-right: .25rem;
   }
 
   .md\:py-2 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
   }
 
   .md\:px-2 {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
   }
 
   .md\:py-3 {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
   }
 
   .md\:px-3 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
   }
 
   .md\:py-4 {
@@ -7032,51 +7247,51 @@ button,
   }
 
   .md\:pt-1 {
-    padding-top: 0.25rem;
+    padding-top: .25rem;
   }
 
   .md\:pr-1 {
-    padding-right: 0.25rem;
+    padding-right: .25rem;
   }
 
   .md\:pb-1 {
-    padding-bottom: 0.25rem;
+    padding-bottom: .25rem;
   }
 
   .md\:pl-1 {
-    padding-left: 0.25rem;
+    padding-left: .25rem;
   }
 
   .md\:pt-2 {
-    padding-top: 0.5rem;
+    padding-top: .5rem;
   }
 
   .md\:pr-2 {
-    padding-right: 0.5rem;
+    padding-right: .5rem;
   }
 
   .md\:pb-2 {
-    padding-bottom: 0.5rem;
+    padding-bottom: .5rem;
   }
 
   .md\:pl-2 {
-    padding-left: 0.5rem;
+    padding-left: .5rem;
   }
 
   .md\:pt-3 {
-    padding-top: 0.75rem;
+    padding-top: .75rem;
   }
 
   .md\:pr-3 {
-    padding-right: 0.75rem;
+    padding-right: .75rem;
   }
 
   .md\:pb-3 {
-    padding-bottom: 0.75rem;
+    padding-bottom: .75rem;
   }
 
   .md\:pl-3 {
-    padding-left: 0.75rem;
+    padding-left: .75rem;
   }
 
   .md\:pt-4 {
@@ -7215,6 +7430,11 @@ button,
     position: relative;
   }
 
+  .md\:sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
   .md\:pin-none {
     top: auto;
     right: auto;
@@ -7272,23 +7492,31 @@ button,
   }
 
   .md\:shadow {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
 
   .md\:shadow-md {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
   }
 
   .md\:shadow-lg {
-    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
   }
 
   .md\:shadow-inner {
-    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
   }
 
   .md\:shadow-none {
     box-shadow: none;
+  }
+
+  .md\:table-auto {
+    table-layout: auto;
+  }
+
+  .md\:table-fixed {
+    table-layout: fixed;
   }
 
   .md\:text-left {
@@ -7324,7 +7552,7 @@ button,
   }
 
   .md\:text-white {
-    color: #ffffff;
+    color: #fff;
   }
 
   .md\:text-blue-lighter {
@@ -7332,7 +7560,7 @@ button,
   }
 
   .md\:text-blue-lightest {
-    color: #d8f6ff;;
+    color: #D8F6FF;;
   }
 
   .md\:text-indigo-dark {
@@ -7360,7 +7588,7 @@ button,
   }
 
   .md\:hover\:text-white:hover {
-    color: #ffffff;
+    color: #fff;
   }
 
   .md\:hover\:text-blue-lighter:hover {
@@ -7368,7 +7596,7 @@ button,
   }
 
   .md\:hover\:text-blue-lightest:hover {
-    color: #d8f6ff;;
+    color: #D8F6FF;;
   }
 
   .md\:hover\:text-indigo-dark:hover {
@@ -7524,15 +7752,21 @@ button,
   }
 
   .md\:tracking-wide {
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
   }
 
   .md\:select-none {
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
   }
 
   .md\:select-text {
-    user-select: text;
+    -webkit-user-select: text;
+       -moz-user-select: text;
+        -ms-user-select: text;
+            user-select: text;
   }
 
   .md\:align-baseline {
@@ -7602,15 +7836,15 @@ button,
   }
 
   .md\:w-1 {
-    width: 0.25rem;
+    width: .25rem;
   }
 
   .md\:w-2 {
-    width: 0.5rem;
+    width: .5rem;
   }
 
   .md\:w-3 {
-    width: 0.75rem;
+    width: .75rem;
   }
 
   .md\:w-4 {
@@ -7721,7 +7955,9 @@ button,
   }
 
   .lg\:appearance-none {
-    appearance: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
   }
 
   .lg\:bg-fixed {
@@ -7753,7 +7989,7 @@ button,
   }
 
   .lg\:bg-white {
-    background-color: #ffffff;
+    background-color: #fff;
   }
 
   .lg\:bg-blue-lighter {
@@ -7761,7 +7997,7 @@ button,
   }
 
   .lg\:bg-blue-lightest {
-    background-color: #d8f6ff;;
+    background-color: #D8F6FF;;
   }
 
   .lg\:bg-indigo-dark {
@@ -7789,7 +8025,7 @@ button,
   }
 
   .lg\:hover\:bg-white:hover {
-    background-color: #ffffff;
+    background-color: #fff;
   }
 
   .lg\:hover\:bg-blue-lighter:hover {
@@ -7797,7 +8033,7 @@ button,
   }
 
   .lg\:hover\:bg-blue-lightest:hover {
-    background-color: #d8f6ff;;
+    background-color: #D8F6FF;;
   }
 
   .lg\:hover\:bg-indigo-dark:hover {
@@ -7860,6 +8096,10 @@ button,
     background-repeat: repeat-y;
   }
 
+  .lg\:bg-auto {
+    background-size: auto;
+  }
+
   .lg\:bg-cover {
     background-size: cover;
   }
@@ -7885,7 +8125,7 @@ button,
   }
 
   .lg\:border-white {
-    border-color: #ffffff;
+    border-color: #fff;
   }
 
   .lg\:border-blue-lighter {
@@ -7893,7 +8133,7 @@ button,
   }
 
   .lg\:border-blue-lightest {
-    border-color: #d8f6ff;;
+    border-color: #D8F6FF;;
   }
 
   .lg\:border-indigo-dark {
@@ -7921,7 +8161,7 @@ button,
   }
 
   .lg\:hover\:border-white:hover {
-    border-color: #ffffff;
+    border-color: #fff;
   }
 
   .lg\:hover\:border-blue-lighter:hover {
@@ -7929,7 +8169,7 @@ button,
   }
 
   .lg\:hover\:border-blue-lightest:hover {
-    border-color: #d8f6ff;;
+    border-color: #D8F6FF;;
   }
 
   .lg\:hover\:border-indigo-dark:hover {
@@ -8268,6 +8508,14 @@ button,
     cursor: pointer;
   }
 
+  .lg\:cursor-wait {
+    cursor: wait;
+  }
+
+  .lg\:cursor-move {
+    cursor: move;
+  }
+
   .lg\:cursor-not-allowed {
     cursor: not-allowed;
   }
@@ -8511,15 +8759,15 @@ button,
   }
 
   .lg\:h-1 {
-    height: 0.25rem;
+    height: .25rem;
   }
 
   .lg\:h-2 {
-    height: 0.5rem;
+    height: .5rem;
   }
 
   .lg\:h-3 {
-    height: 0.75rem;
+    height: .75rem;
   }
 
   .lg\:h-4 {
@@ -8599,15 +8847,15 @@ button,
   }
 
   .lg\:m-1 {
-    margin: 0.25rem;
+    margin: .25rem;
   }
 
   .lg\:m-2 {
-    margin: 0.5rem;
+    margin: .5rem;
   }
 
   .lg\:m-3 {
-    margin: 0.75rem;
+    margin: .75rem;
   }
 
   .lg\:m-4 {
@@ -8641,33 +8889,33 @@ button,
   }
 
   .lg\:my-1 {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
+    margin-top: .25rem;
+    margin-bottom: .25rem;
   }
 
   .lg\:mx-1 {
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
+    margin-left: .25rem;
+    margin-right: .25rem;
   }
 
   .lg\:my-2 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
   }
 
   .lg\:mx-2 {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
   }
 
   .lg\:my-3 {
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
+    margin-top: .75rem;
+    margin-bottom: .75rem;
   }
 
   .lg\:mx-3 {
-    margin-left: 0.75rem;
-    margin-right: 0.75rem;
+    margin-left: .75rem;
+    margin-right: .75rem;
   }
 
   .lg\:my-4 {
@@ -8737,51 +8985,51 @@ button,
   }
 
   .lg\:mt-1 {
-    margin-top: 0.25rem;
+    margin-top: .25rem;
   }
 
   .lg\:mr-1 {
-    margin-right: 0.25rem;
+    margin-right: .25rem;
   }
 
   .lg\:mb-1 {
-    margin-bottom: 0.25rem;
+    margin-bottom: .25rem;
   }
 
   .lg\:ml-1 {
-    margin-left: 0.25rem;
+    margin-left: .25rem;
   }
 
   .lg\:mt-2 {
-    margin-top: 0.5rem;
+    margin-top: .5rem;
   }
 
   .lg\:mr-2 {
-    margin-right: 0.5rem;
+    margin-right: .5rem;
   }
 
   .lg\:mb-2 {
-    margin-bottom: 0.5rem;
+    margin-bottom: .5rem;
   }
 
   .lg\:ml-2 {
-    margin-left: 0.5rem;
+    margin-left: .5rem;
   }
 
   .lg\:mt-3 {
-    margin-top: 0.75rem;
+    margin-top: .75rem;
   }
 
   .lg\:mr-3 {
-    margin-right: 0.75rem;
+    margin-right: .75rem;
   }
 
   .lg\:mb-3 {
-    margin-bottom: 0.75rem;
+    margin-bottom: .75rem;
   }
 
   .lg\:ml-3 {
-    margin-left: 0.75rem;
+    margin-left: .75rem;
   }
 
   .lg\:mt-4 {
@@ -9208,14 +9456,36 @@ button,
     overflow: scroll;
   }
 
-  .lg\:overflow-x-scroll {
+  .lg\:overflow-x-auto {
     overflow-x: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+
+  .lg\:overflow-y-auto {
+    overflow-y: auto;
+  }
+
+  .lg\:overflow-x-hidden {
+    overflow-x: hidden;
+  }
+
+  .lg\:overflow-y-hidden {
+    overflow-y: hidden;
+  }
+
+  .lg\:overflow-x-visible {
+    overflow-x: visible;
+  }
+
+  .lg\:overflow-y-visible {
+    overflow-y: visible;
+  }
+
+  .lg\:overflow-x-scroll {
+    overflow-x: scroll;
   }
 
   .lg\:overflow-y-scroll {
-    overflow-y: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+    overflow-y: scroll;
   }
 
   .lg\:scrolling-touch {
@@ -9231,15 +9501,15 @@ button,
   }
 
   .lg\:p-1 {
-    padding: 0.25rem;
+    padding: .25rem;
   }
 
   .lg\:p-2 {
-    padding: 0.5rem;
+    padding: .5rem;
   }
 
   .lg\:p-3 {
-    padding: 0.75rem;
+    padding: .75rem;
   }
 
   .lg\:p-4 {
@@ -9281,33 +9551,33 @@ button,
   }
 
   .lg\:py-1 {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
   }
 
   .lg\:px-1 {
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
+    padding-left: .25rem;
+    padding-right: .25rem;
   }
 
   .lg\:py-2 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
   }
 
   .lg\:px-2 {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
   }
 
   .lg\:py-3 {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
   }
 
   .lg\:px-3 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
   }
 
   .lg\:py-4 {
@@ -9397,51 +9667,51 @@ button,
   }
 
   .lg\:pt-1 {
-    padding-top: 0.25rem;
+    padding-top: .25rem;
   }
 
   .lg\:pr-1 {
-    padding-right: 0.25rem;
+    padding-right: .25rem;
   }
 
   .lg\:pb-1 {
-    padding-bottom: 0.25rem;
+    padding-bottom: .25rem;
   }
 
   .lg\:pl-1 {
-    padding-left: 0.25rem;
+    padding-left: .25rem;
   }
 
   .lg\:pt-2 {
-    padding-top: 0.5rem;
+    padding-top: .5rem;
   }
 
   .lg\:pr-2 {
-    padding-right: 0.5rem;
+    padding-right: .5rem;
   }
 
   .lg\:pb-2 {
-    padding-bottom: 0.5rem;
+    padding-bottom: .5rem;
   }
 
   .lg\:pl-2 {
-    padding-left: 0.5rem;
+    padding-left: .5rem;
   }
 
   .lg\:pt-3 {
-    padding-top: 0.75rem;
+    padding-top: .75rem;
   }
 
   .lg\:pr-3 {
-    padding-right: 0.75rem;
+    padding-right: .75rem;
   }
 
   .lg\:pb-3 {
-    padding-bottom: 0.75rem;
+    padding-bottom: .75rem;
   }
 
   .lg\:pl-3 {
-    padding-left: 0.75rem;
+    padding-left: .75rem;
   }
 
   .lg\:pt-4 {
@@ -9580,6 +9850,11 @@ button,
     position: relative;
   }
 
+  .lg\:sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
   .lg\:pin-none {
     top: auto;
     right: auto;
@@ -9637,23 +9912,31 @@ button,
   }
 
   .lg\:shadow {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
 
   .lg\:shadow-md {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
   }
 
   .lg\:shadow-lg {
-    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
   }
 
   .lg\:shadow-inner {
-    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
   }
 
   .lg\:shadow-none {
     box-shadow: none;
+  }
+
+  .lg\:table-auto {
+    table-layout: auto;
+  }
+
+  .lg\:table-fixed {
+    table-layout: fixed;
   }
 
   .lg\:text-left {
@@ -9689,7 +9972,7 @@ button,
   }
 
   .lg\:text-white {
-    color: #ffffff;
+    color: #fff;
   }
 
   .lg\:text-blue-lighter {
@@ -9697,7 +9980,7 @@ button,
   }
 
   .lg\:text-blue-lightest {
-    color: #d8f6ff;;
+    color: #D8F6FF;;
   }
 
   .lg\:text-indigo-dark {
@@ -9725,7 +10008,7 @@ button,
   }
 
   .lg\:hover\:text-white:hover {
-    color: #ffffff;
+    color: #fff;
   }
 
   .lg\:hover\:text-blue-lighter:hover {
@@ -9733,7 +10016,7 @@ button,
   }
 
   .lg\:hover\:text-blue-lightest:hover {
-    color: #d8f6ff;;
+    color: #D8F6FF;;
   }
 
   .lg\:hover\:text-indigo-dark:hover {
@@ -9889,15 +10172,21 @@ button,
   }
 
   .lg\:tracking-wide {
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
   }
 
   .lg\:select-none {
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
   }
 
   .lg\:select-text {
-    user-select: text;
+    -webkit-user-select: text;
+       -moz-user-select: text;
+        -ms-user-select: text;
+            user-select: text;
   }
 
   .lg\:align-baseline {
@@ -9967,15 +10256,15 @@ button,
   }
 
   .lg\:w-1 {
-    width: 0.25rem;
+    width: .25rem;
   }
 
   .lg\:w-2 {
-    width: 0.5rem;
+    width: .5rem;
   }
 
   .lg\:w-3 {
-    width: 0.75rem;
+    width: .75rem;
   }
 
   .lg\:w-4 {
