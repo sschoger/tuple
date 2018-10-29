@@ -63,6 +63,8 @@
                             name="fields[email]"
                             autocomplete="email">
 
+                            <input type="hidden" id="referrer" name="fields[referrer]" value="">
+
                             <button class="w-full md:w-auto md:flex-no-shrink
                               bg-indigo-dark hover:bg-indigo border-indigo-dark
                               hover:border-indigo uppercase font-bold
@@ -74,6 +76,11 @@
                             </button>
                         </div>
                     </form>
+
+                    <script>
+                      document.getElementById("referrer").value = document.referrer;
+                    </script>
+
                 </div>
             </div>
         </div>
