@@ -1,6 +1,6 @@
 @tailwind preflight;
 
-@tailwind utilities;
+@tailwind components;
 
 ::selection {
     background: #C8F2FF;
@@ -18,3 +18,5 @@
 ::-ms-input-placeholder { /* Microsoft Edge */
     color: #808790;
 }
+
+@tailwind utilities;
