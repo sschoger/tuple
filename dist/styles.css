@@ -494,6 +494,70 @@ table {
   border-collapse: collapse;
 }
 
+.container {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 576px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 960px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+::-moz-selection {
+  background: #c8f2ff;
+}
+
+::selection {
+  background: #c8f2ff;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #808790;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #808790;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #808790;
+  opacity: 1; /* Firefox */
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #808790;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #808790;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #808790;
+}
+
 .list-reset {
   list-style: none;
   padding: 0;
@@ -2934,48 +2998,6 @@ table {
 
 .z-auto {
   z-index: auto;
-}
-
-::-moz-selection {
-  background: #c8f2ff;
-}
-
-::selection {
-  background: #c8f2ff;
-}
-
-::-webkit-input-placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #808790;
-  opacity: 1; /* Firefox */
-}
-
-:-ms-input-placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #808790;
-  opacity: 1; /* Firefox */
-}
-
-::-ms-input-placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #808790;
-  opacity: 1; /* Firefox */
-}
-
-::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #808790;
-  opacity: 1; /* Firefox */
-}
-
-:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: #808790;
-}
-
-::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: #808790;
 }
 
 @media (min-width: 576px) {
