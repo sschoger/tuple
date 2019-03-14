@@ -1,3 +1,4 @@
 /css/pairing-guide-compiled.css https://pair-programming-guide.netlify.com/css/pairing-guide-compiled.css 200
 /assets/* https://pair-programming-guide.netlify.com/assets/:splat 200
 /pair-programming-guide/* https://pair-programming-guide.netlify.com/:splat 200
+/security https://www.notion.so/tupleapp/Tuple-Security-Details-c877144b32bd4ab0abe7f66c6a104f4e
